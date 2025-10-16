@@ -24,17 +24,22 @@ data2=UpdateSeuratObject(data2)
 data3 = readRDS(paste0(dataPath,'GSE127774_ACC_seurat.rds'))
 data3=UpdateSeuratObject(data3)
 
-dataTemp = data3
+#ENSG00000140443  IGF1R
+#ENSG00000017427  IGF1
+dataTemp = data1
 dataTemp <- RunUMAP(dataTemp, reduction = "pca", dims = 1:30)
+FeaturePlot(dataTemp,'ENSG00000017427')
+Dimplot(dataTemp, group.by = 'orig.ident')
+
 ### 转换基因名
 library(biomaRt)
 # 查询ensembl
 mart <- useMart("ensembl", dataset = "hsapiens_gene_ensembl")
 # 获取转换表
-DefaultAssay(data3)  # 应该显示 "integrated"
+DefaultAssay(dataTemp)  # 应该显示 "integrated"
 length(rownames(dataTemp[["RNA"]]))        # 应该是 13010
 length(rownames(dataTemp[["integrated"]])) # 应该是 2000
-genes <- rownames(dataTemp[["integrated"]])
+genes <- rownames(dataTemp[["RNA"]])
 gene_map <- getBM(
     attributes = c('ensembl_gene_id', 'hgnc_symbol'),
     filters    = 'ensembl_gene_id',
@@ -54,3 +59,8 @@ gene_map[gene_map$hgnc_symbol %in% c("IGF1", "IGF1R"), ]
 
 # 匹配新symbol并赋值给Seurat对象
 subDataTemp = subset(dataTemp,features = gene_map[,1])
+
+
+
+
+
