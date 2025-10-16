@@ -1,3 +1,6 @@
+#https://pubmed.ncbi.nlm.nih.gov/32424074/
+#https://www.cell.com/cell/fulltext/S0092-8674(19)31231-0?rss=yes
+
 library(Seurat, help, pos = 2, lib.loc = NULL)
 RenameGenesSeurat <- function(obj = ls.Seurat[[1]], newnames = HGNC.updated[[1]]$Suggested.Symbol) { # Replace gene
   print("Run this before integration. It only changes obj@assays$RNA@counts, @data and @scale.data.")
@@ -27,9 +30,11 @@ data3=UpdateSeuratObject(data3)
 #ENSG00000140443  IGF1R
 #ENSG00000017427  IGF1
 dataTemp = data1
+DefaultAssay(dataTemp) ='RNA'
 dataTemp <- RunUMAP(dataTemp, reduction = "pca", dims = 1:30)
 FeaturePlot(dataTemp,'ENSG00000017427')
-Dimplot(dataTemp, group.by = 'orig.ident')
+DimPlot(dataTemp, group.by = 'orig.ident')
+FeaturePlot(dataTemp,'ENSG00000140443')
 
 ### 转换基因名
 library(biomaRt)
