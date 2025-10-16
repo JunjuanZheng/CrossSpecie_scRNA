@@ -1,5 +1,11 @@
+#Comparative single-cell transcriptomic analysis of primate brains highlights human-specific regulatory evolution
+# https://www.nature.com/articles/s41559-023-02186-7#Sec8  
+
+#Single-cell-resolution transcriptome map of human, chimpanzee, bonobo, and macaque brains
 #https://pubmed.ncbi.nlm.nih.gov/32424074/
-#https://www.cell.com/cell/fulltext/S0092-8674(19)31231-0?rss=yes
+
+#Cross-Species Single-Cell Analysis Reveals Divergence of the Primate Microglia Program
+#https://www.cell.com/cell/fulltext/S0092-8674(19)31231-0?rss=yes   GSE134707    https://bitbucket.org/amitlab/workspace/repositories/  
 
 library(Seurat, help, pos = 2, lib.loc = NULL)
 RenameGenesSeurat <- function(obj = ls.Seurat[[1]], newnames = HGNC.updated[[1]]$Suggested.Symbol) { # Replace gene
